@@ -1,6 +1,5 @@
 package example.cds;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRDataSource;

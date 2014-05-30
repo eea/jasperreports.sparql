@@ -5,7 +5,6 @@ import java.util.Map;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRParameter;
 
-import com.jaspersoft.jasperserver.api.metadata.common.service.RepositoryService;
 import com.jaspersoft.jasperserver.api.metadata.jasperreports.service.ReportDataSourceService;
 
 /**
@@ -16,13 +15,13 @@ public class SPARQLDataSourceService implements ReportDataSourceService {
 
     private String endpointUrl;
     private String sparqlStatement;
-    
+
     public SPARQLDataSourceService() {
     }
-    
+
     public SPARQLDataSourceService(JRDataSource ds) {
     }
-    
+
     /* (non-Javadoc)
      * @see com.jaspersoft.jasperserver.api.metadata.jasperreports.service.ReportDataSourceService#closeConnection()
      */

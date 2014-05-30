@@ -1,24 +1,19 @@
 package example.cds;
 
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 
+import org.openrdf.model.Literal;
 import org.openrdf.model.Value;
 import org.openrdf.query.BindingSet;
 import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.query.QueryLanguage;
-import org.openrdf.query.QueryResult;
 import org.openrdf.query.TupleQuery;
 import org.openrdf.query.TupleQueryResult;
 import org.openrdf.repository.RepositoryConnection;
@@ -101,14 +96,39 @@ public class SPARQLDataSource implements JRDataSource {
         Object o = null;
 
         String fieldName = field.getName();
+        Class<?> fieldClass = field.getValueClass();
+
         Value value = currentBinding.getValue(fieldName);
 
-        if (value != null) {
-            o = value.stringValue();
-        } else {
-            o = "N/A for " + fieldName;
+        if (value == null) {
+            return null;
         }
-        return o;
+
+        // Can always convert to string
+        if (fieldClass.equals(String.class)) {
+            return value.stringValue();
+        }
+        if (value instanceof Literal) {
+            Literal lValue = (Literal) value;
+            if (fieldClass.equals(Boolean.class)) {
+               return lValue.booleanValue();
+            } else if (fieldClass.equals(Integer.class)) {
+               return (Integer) lValue.intValue();
+            } else if (fieldClass.equals(Long.class)) {
+               return (Long) lValue.longValue();
+            } else if (fieldClass.equals(BigDecimal.class)) {
+               return lValue.decimalValue();
+            } else if (fieldClass.equals(Date.class)) {
+               return new Date(lValue.calendarValue().toGregorianCalendar().getTimeInMillis());
+            } else if (fieldClass.equals(Time.class)) {
+               return new Time(lValue.calendarValue().toGregorianCalendar().getTimeInMillis());
+            } else if (fieldClass.equals(Timestamp.class)) {
+               return new Timestamp(lValue.calendarValue().toGregorianCalendar().getTimeInMillis());
+            }
+        } else {
+            throw new JRException("Field '" + fieldName + "' is of class '" + fieldClass.getName() + "' and can not be converted");
+        }
+        return null;
     }
 
     @Override
