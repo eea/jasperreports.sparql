@@ -11,12 +11,12 @@
         <!-- name used in message catalog and elsewhere -->
         <property name="name" value="sparqlDataSource"/>
         <!-- class name of implementation -->
-        <property name="serviceClassName" value="example.cds.SPARQLDataSourceService"/>
+        <property name="serviceClassName" value="eionet.jasperreports.cds.SPARQLDataSourceService"/>
         <!-- instance of validator (optional)
              must implement com.jaspersoft.jasperserver.api.engine.jasperreports.util.CustomDataSourceValidator 
           -->
         <property name="validator">
-            <bean class="example.cds.SPARQLDataSourceValidator"/>
+            <bean class="eionet.jasperreports.cds.SPARQLDataSourceValidator"/>
         </property>
         <!-- definitions of properties you can edit -->
         <property name="propertyDefinitions">
@@ -28,7 +28,7 @@
         </property>
         <property name="queryExecuterMap">
             <map>
-                <entry key="sparql" value="example.cds.SPARQLQueryExecuterFactory"/>
+                <entry key="sparql" value="eionet.jasperreports.cds.SPARQLQueryExecuterFactory"/>
             </map>
         </property>
     </bean>

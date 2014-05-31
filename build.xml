@@ -5,12 +5,12 @@
     <property name="webAppDir" value="/opt/jasperreports-server-cp-5.5.0a/apache-tomcat/webapps/jasperserver"/>
 
     <target name="clean">
-        <delete dir="classes"/>
+        <delete dir="build"/>
     </target>
 
     <target name="compile">
-        <mkdir dir="classes"/>
-        <javac srcdir="src" destdir="classes" debug="true">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes" debug="true" deprecation="true">
             <classpath>
                 <fileset dir="${webAppDir}/WEB-INF/lib">
                     <include name="*.jar"/>
@@ -30,8 +30,14 @@
         <!-- copy classes dir -->
         <echo message="classes..."/>
         <copy todir="${webAppDir}/WEB-INF/classes">
-            <fileset dir="classes"/>
+            <fileset dir="build/classes"/>
         </copy>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/SPARQLDataSource.jar" basedir="build/classes">
+        </jar>
     </target>
 
 </project>

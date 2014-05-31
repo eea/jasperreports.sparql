@@ -1,4 +1,4 @@
-package example.cds;
+package eionet.jasperreports.cds;
 
 import java.util.Map;
 

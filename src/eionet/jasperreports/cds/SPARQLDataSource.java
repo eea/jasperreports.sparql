@@ -1,4 +1,4 @@
-package example.cds;
+package eionet.jasperreports.cds;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -8,6 +8,9 @@ import java.sql.Timestamp;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import org.openrdf.model.Literal;
 import org.openrdf.model.Value;
@@ -22,15 +25,18 @@ import org.openrdf.repository.sparql.SPARQLRepository;
 
 
 /**
- * SPARQL data source implementation for JasperReports Server.
+ * SPARQL data source implementation for JasperReports Library.
  *
  * @author Søren Roug
  */
 public class SPARQLDataSource implements JRDataSource {
 
+    private static final Log log = LogFactory.getLog(SPARQLDataSource.class);
+
+    /** URL of the endpoint. */
     private String endpointUrl;
 
-    private static SPARQLRepository endpointObj;
+    private SPARQLRepository endpointObj;
 
     private RepositoryConnection conn;
 
@@ -74,6 +80,7 @@ public class SPARQLDataSource implements JRDataSource {
         }
         try {
             conn = endpointObj.getConnection();
+            log.debug("Executing SPARQL: " + sparqlStatement);
             TupleQuery q = conn.prepareTupleQuery(QueryLanguage.SPARQL, sparqlStatement);
             result = q.evaluate();
             System.out.println("Bindings got, size: " + result.getBindingNames().size());
@@ -124,6 +131,8 @@ public class SPARQLDataSource implements JRDataSource {
                return new Time(lValue.calendarValue().toGregorianCalendar().getTimeInMillis());
             } else if (fieldClass.equals(Timestamp.class)) {
                return new Timestamp(lValue.calendarValue().toGregorianCalendar().getTimeInMillis());
+            } else if (fieldClass.equals(java.util.Date.class)) {
+               return new java.util.Date(lValue.calendarValue().toGregorianCalendar().getTimeInMillis());
             }
         } else {
             throw new JRException("Field '" + fieldName + "' is of class '" + fieldClass.getName() + "' and can not be converted");
