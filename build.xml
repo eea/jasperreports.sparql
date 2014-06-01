@@ -22,22 +22,28 @@
         </javac>
     </target>
 
-    <target name="deploy" depends="compile">
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/SPARQLDataSource.jar" basedir="build/classes">
+        </jar>
+    </target>
+
+    <target name="deploy" depends="compile,jar">
         <echo message="webapp src..."/>
         <copy todir="${webAppDir}">
             <fileset dir="webapp"/>
         </copy>
         <!-- copy classes dir -->
+        <!--
         <echo message="classes..."/>
         <copy todir="${webAppDir}/WEB-INF/classes">
             <fileset dir="build/classes"/>
         </copy>
-    </target>
-
-    <target name="jar" depends="compile">
-        <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/SPARQLDataSource.jar" basedir="build/classes">
-        </jar>
+        -->
+        <echo message="jar..."/>
+        <copy todir="${webAppDir}/WEB-INF/lib">
+            <fileset dir="build/jar"/>
+        </copy>
     </target>
 
 </project>

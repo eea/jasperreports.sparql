@@ -8,7 +8,7 @@ import net.sf.jasperreports.engine.JRParameter;
 import com.jaspersoft.jasperserver.api.metadata.jasperreports.service.ReportDataSourceService;
 
 /**
- * @author swood
+ * @author Søren Roug
  *
  */
 public class SPARQLDataSourceService implements ReportDataSourceService {
@@ -22,17 +22,11 @@ public class SPARQLDataSourceService implements ReportDataSourceService {
     public SPARQLDataSourceService(JRDataSource ds) {
     }
 
-    /* (non-Javadoc)
-     * @see com.jaspersoft.jasperserver.api.metadata.jasperreports.service.ReportDataSourceService#closeConnection()
-     */
     @Override
     public void closeConnection() {
         // Do nothing
     }
 
-    /* (non-Javadoc)
-     * @see com.jaspersoft.jasperserver.api.metadata.jasperreports.service.ReportDataSourceService#setReportParameterValues(java.util.Map)
-     */
     @Override
     public void setReportParameterValues(Map parameterValues) {
         parameterValues.put(JRParameter.REPORT_DATA_SOURCE,
@@ -49,11 +43,4 @@ public class SPARQLDataSourceService implements ReportDataSourceService {
         this.endpointUrl = endpointUrl;
     }
 
-//  public String getPath() {
-//      return sparqlStatement;
-//  }
-
-//  public void setPath(String sparqlStatement) {
-//      this.sparqlStatement = sparqlStatement;
-//  }
 }
