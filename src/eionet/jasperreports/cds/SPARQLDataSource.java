@@ -14,6 +14,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.openrdf.model.Literal;
 import org.openrdf.model.Value;
+import org.openrdf.model.Resource;
 import org.openrdf.query.BindingSet;
 import org.openrdf.query.QueryEvaluationException;
 import org.openrdf.query.QueryLanguage;
@@ -80,7 +81,7 @@ public class SPARQLDataSource implements JRDataSource {
         }
         try {
             conn = endpointObj.getConnection();
-            log.debug("Executing SPARQL: " + sparqlStatement);
+            log.info("Executing SPARQL: " + sparqlStatement);
             TupleQuery q = conn.prepareTupleQuery(QueryLanguage.SPARQL, sparqlStatement);
             result = q.evaluate();
             System.out.println("Bindings got, size: " + result.getBindingNames().size());
@@ -95,8 +96,11 @@ public class SPARQLDataSource implements JRDataSource {
         }
     }
 
-    // default implementation returns strings
-    // TODO improve in the future to return required classes
+    /**
+     * Gets the field value for the current position.
+     * Give the caller the class it is asking for. For Resource, ask for string until we
+     * have implemented a resource type.
+     */
     @Override
     public Object getFieldValue(JRField field) throws JRException {
         init();
@@ -134,6 +138,8 @@ public class SPARQLDataSource implements JRDataSource {
             } else if (fieldClass.equals(java.util.Date.class)) {
                return new java.util.Date(lValue.calendarValue().toGregorianCalendar().getTimeInMillis());
             }
+//      } else if (value instanceof Resource) {
+//           return value.stringValue();
         } else {
             throw new JRException("Field '" + fieldName + "' is of class '" + fieldClass.getName() + "' and can not be converted");
         }
