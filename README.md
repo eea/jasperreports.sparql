@@ -1,4 +1,5 @@
-# README Custom SPARQL Data Source
+# README - SPARQL Data Source
+The SPARQL Data Source is a module to install on a JasperReports Server to connect queries to public SPARQL endpoints according to the [W3C SPARQL Protocol specification](http://www.w3.org/TR/sparql11-protocol/). When governments are launching projects to make data available in this form, then it is called Linked Open Data (LOD).
 
 ## Installation
 If you want to compile the SPARQL Data Source you'll have to first install JasperReports Server, JDK and Ant locally, and set the webAppDir property in build.xml. If you just want to install the component you can copy the files in *webapp* to the same locations in JasperReports Server. Then you must also make a few changes to the other configuration files.
