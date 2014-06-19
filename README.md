@@ -16,26 +16,26 @@ query.language.sparql.label=SPARQL
 ## Compilation
 If you want to compile the SPARQL Data Source you'll have to first install the Java Development Kit and Maven locally.
 
-To compile you first have to get some JAR files from a JasperReports Server installation. You can find them in the server's WEB-INF/lib. The files are jasperserver-api-engine-impl-5.6.0.jar, jasperserver-api-common-5.6.0.jar and jasperserver-api-metadata-5.6.0.jar. Copy them to the project root (here) and deploy them to your local 3rd party library:
+To compile you first have to get some JAR files from a JasperReports Server installation. You can find them in the server's WEB-INF/lib. We have provided them from the Community Edition version 5.6.0, but the version you want to build against might be different. The files are jasperserver-api-engine-impl-X.Y.Z.jar, jasperserver-api-common-X.Y.Z.jar and jasperserver-api-metadata-X.Y.Z.jar. Copy them to the project root (here) and deploy them to your local 3rd party library:
 
 ```
 mvn deploy:deploy-file \
-  -Dfile=jasperserver-api-engine-impl-5.6.0.jar \
+  -Dfile=jasperserver-api-engine-impl-X.Y.Z.jar \
   -DgroupId=com.jaspersoft.jasperserver.api.engine.impl \
   -DartifactId=jasperserver-api-engine-impl \
-  -Dversion=5.6.0 -Dpackaging=jar -Durl=file:3rdparty
+  -Dversion=X.Y.Z -Dpackaging=jar -Durl=file:3rdparty
 
 mvn deploy:deploy-file \
-  -Dfile=jasperserver-api-common-5.6.0.jar \
+  -Dfile=jasperserver-api-common-X.Y.Z.jar \
   -DgroupId=com.jaspersoft.jasperserver.api.common \
   -DartifactId=jasperserver-api-common \
-  -Dversion=5.6.0 -Dpackaging=jar -Durl=file:3rdparty
+  -Dversion=X.Y.Z -Dpackaging=jar -Durl=file:3rdparty
 
 mvn deploy:deploy-file \
-  -Dfile=jasperserver-api-metadata-5.6.0.jar \
+  -Dfile=jasperserver-api-metadata-X.Y.Z.jar \
   -DgroupId=com.jaspersoft.jasperserver.api.metadata \
   -DartifactId=jasperserver-api-metadata \
-  -Dversion=5.6.0 -Dpackaging=jar -Durl=file:3rdparty
+  -Dversion=X.Y.Z -Dpackaging=jar -Durl=file:3rdparty
 ```
 You can then delete them from the project root.
 
@@ -69,13 +69,3 @@ ORDER BY ?name
 ```
 
 You can then create a report in JasperReports Studio that uses the variables name, lat, long and areaKM.
-
-## Issues
-
-When you create an Ad Hoc View based on a topic (report) then you get an exception.
-
-net.sf.jasperreports.engine.JRException: SPARQL statements can't be null
-    at eionet.jasperreports.cds.SPARQLDataSource.init(SPARQLDataSource.java:74)
-    at eionet.jasperreports.cds.SPARQLDataSource.next(SPARQLDataSource.java:151)
-    at com.jaspersoft.commons.semantic.dsimpl.JRQueryDataSet$JRDataSetIterator.next(JRQueryDataSet.java:379)
-    at com.jaspersoft.commons.datarator.CachedData.fetchData(CachedData.java:148)
