@@ -21,8 +21,7 @@ public class SPARQLDataSourceValidator implements CustomDataSourceValidator {
         if (props != null) {
             endpoint = (String) ds.getPropertyMap().get("endpoint");
         }
-//TODO: check for a sane URL.
-        if (endpoint == null || endpoint.length() == 0) {
+        if (endpoint == null || !(endpoint.startsWith("http://") || endpoint.startsWith("https://"))) {
             reject(errors, "endpoint");
         }
     }

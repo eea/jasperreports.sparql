@@ -28,7 +28,7 @@ import org.openrdf.repository.sparql.SPARQLRepository;
 /**
  * SPARQL data source implementation for JasperReports Library.
  *
- * @author Søren Roug
+ * @author Søren Roug, European Environment Agency
  */
 public class SPARQLDataSource implements JRDataSource {
 
@@ -91,7 +91,7 @@ public class SPARQLDataSource implements JRDataSource {
             log.info("Executing SPARQL: " + sparqlStatement);
             TupleQuery q = conn.prepareTupleQuery(QueryLanguage.SPARQL, sparqlStatement);
             result = q.evaluate();
-            System.out.println("Bindings got, size: " + result.getBindingNames().size());
+            log.debug("Bindings got, size: " + result.getBindingNames().size());
         } catch (Exception e) {
             throw new JRException("Exception connecting to endpoint " + endpointUrl, e);
         } finally {
