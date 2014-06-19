@@ -2,7 +2,7 @@
 The SPARQL Data Source is a module to install on a JasperReports Server to connect queries to public SPARQL endpoints according to the [W3C SPARQL Protocol specification](http://www.w3.org/TR/sparql11-protocol/). When governments are launching projects to make data available in this form, then it is called Linked Open Data (LOD).
 
 ## Installation
-If you want to compile the SPARQL Data Source you'll have to first install JasperReports Server, JDK and Ant locally, and set the webAppDir property in build.xml. If you just want to install the component you can copy the files in *webapp* to the same locations in JasperReports Server. Then you must also make a few changes to the other configuration files.
+If you just want to install the component you can copy the files in *webapp* to the same locations in JasperReports Server. Then you must also make a few changes to the other configuration files.
 
 Since SPARQL is not recognised by Jasper Reports as a query language, you'll have to add it otherwise you can't create queries on JasperReports Server. In WEB-INF/applicationContext-rest-services.xml find the `<util:list id="queryLanguagesCe">`add a line to the list of values.
 ```
@@ -14,8 +14,30 @@ query.language.sparql.label=SPARQL
 ```
 
 ## Compilation
+If you want to compile the SPARQL Data Source you'll have to first install the Java Development Kit and Maven locally.
 
-See the readme.txt for how to compile a Custom Data Source
+To compile you first have to get some JAR files from a JasperReports Server installation. You can find them in the server's WEB-INF/lib. The files are jasperserver-api-engine-impl-5.6.0.jar, jasperserver-api-common-5.6.0.jar and jasperserver-api-metadata-5.6.0.jar. Copy them to the project root (here) and deploy them to your local 3rd party library:
+
+```
+mvn deploy:deploy-file \
+  -Dfile=jasperserver-api-engine-impl-5.6.0.jar \
+  -DgroupId=com.jaspersoft.jasperserver.api.engine.impl \
+  -DartifactId=jasperserver-api-engine-impl \
+  -Dversion=5.6.0 -Dpackaging=jar -Durl=file:3rdparty
+
+mvn deploy:deploy-file \
+  -Dfile=jasperserver-api-common-5.6.0.jar \
+  -DgroupId=com.jaspersoft.jasperserver.api.common \
+  -DartifactId=jasperserver-api-common \
+  -Dversion=5.6.0 -Dpackaging=jar -Durl=file:3rdparty
+
+mvn deploy:deploy-file \
+  -Dfile=jasperserver-api-metadata-5.6.0.jar \
+  -DgroupId=com.jaspersoft.jasperserver.api.metadata \
+  -DartifactId=jasperserver-api-metadata \
+  -Dversion=5.6.0 -Dpackaging=jar -Durl=file:3rdparty
+```
+You can then delete them from the project root.
 
 ## Creating a Data Source
 

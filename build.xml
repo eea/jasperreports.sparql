@@ -5,12 +5,12 @@
     <property name="webAppDir" value="/opt/jasperreports-server-cp-5.5.0a/apache-tomcat/webapps/jasperserver"/>
 
     <target name="clean">
-        <delete dir="build"/>
+        <delete dir="target"/>
     </target>
 
     <target name="compile">
-        <mkdir dir="build/classes"/>
-        <javac srcdir="src" destdir="build/classes" debug="true" deprecation="true">
+        <mkdir dir="target/classes"/>
+        <javac srcdir="src/main/java" destdir="target/classes" debug="true" deprecation="true">
             <classpath>
                 <fileset dir="${webAppDir}/WEB-INF/lib">
                     <include name="*.jar"/>
@@ -23,26 +23,30 @@
     </target>
 
     <target name="jar" depends="compile">
-        <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/SPARQLDataSource.jar" basedir="build/classes">
+        <mkdir dir="target"/>
+        <jar destfile="target/SPARQLDataSource-1.0-SNAPSHOT.jar" basedir="target/classes">
         </jar>
     </target>
 
     <target name="deploy" depends="compile,jar">
         <echo message="webapp src..."/>
         <copy todir="${webAppDir}">
-            <fileset dir="webapp"/>
+            <fileset dir="webapp">
+               <exclude name="**/SPARQLDataSource.jar"/>
+            </fileset>
         </copy>
         <!-- copy classes dir -->
         <!--
         <echo message="classes..."/>
         <copy todir="${webAppDir}/WEB-INF/classes">
-            <fileset dir="build/classes"/>
+            <fileset dir="target/classes"/>
         </copy>
         -->
         <echo message="jar..."/>
         <copy todir="${webAppDir}/WEB-INF/lib">
-            <fileset dir="build/jar"/>
+            <fileset dir="target">
+               <include name="*.jar"/>
+            </fileset>
         </copy>
     </target>
 
