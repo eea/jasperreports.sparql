@@ -78,7 +78,7 @@ public class SPARQLDataSource implements JRDataSource {
             throw new JRException("Endpoint URLs can't be null");
         }
         if (sparqlStatement == null || sparqlStatement.length() == 0) {
-            throw new JRException("SPARQL statements can't be null");
+            throw new JRException("SPARQL statements can't be null for " + endpointUrl);
         }
         try {
             endpointObj = new SPARQLRepository(endpointUrl);
