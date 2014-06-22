@@ -61,6 +61,13 @@ public class SPARQLDataSource implements JRDataSource {
     }
 
     /**
+     * Make the result available to other classes in package.
+     */
+    BindingSet getCurrentRow() throws JRException {
+        return currentBinding;
+    }
+
+    /**
      * Execute the query and store it in the result variable.
      */
     private void init() throws JRException {
