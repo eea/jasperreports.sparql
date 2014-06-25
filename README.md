@@ -69,3 +69,15 @@ ORDER BY ?name
 ```
 
 You can then create a report in JasperReports Studio that uses the variables name, lat, long and areaKM.
+
+## Installing it into iReport Designer
+
+Copy openrdf-sesame-2.5.1.jar, slf4j-api-1.5.6.jar, slf4j-log4j12-1.5.6.jar and SPARQLDataSource-1.0-SNAPSHOT.jar to a location that can be seen by iReport. Add the JAR files to the Classpath tab in the Options dialog. On the *Query Executers* tab, add a query excuter for sparql. The Query Executer Factory is eionet.jasperreports.cds.SPARQLQueryExecuterFactory. The Fields Provider Class can be eionet.jasperreports.cds.SPARQLQueryFieldsProvider or null.
+
+Add a "Query Executer mode" data source to your iReport data sources. It facilitates the execution of a report's embedded query.
+
+## Creating a report in iReport Designer
+
+* Choose a template.
+* On the **Report Properties** view, add a property called 'endpoint'. The value is the URL of the SPARQL endpoint. (Usually ends with .../sparql).
+* Add your SPARQL query via the Report query button.
