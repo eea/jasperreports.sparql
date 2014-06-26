@@ -72,7 +72,7 @@ You can then create a report in JasperReports Studio that uses the variables nam
 
 ## Installing it into iReport Designer
 
-Copy openrdf-sesame-2.5.1.jar, slf4j-api-1.5.6.jar, slf4j-log4j12-1.5.6.jar and SPARQLDataSource-1.0-SNAPSHOT.jar to a location that can be seen by iReport. Add the JAR files to the Classpath tab in the Options dialog. On the *Query Executers* tab, add a query excuter for sparql. The Query Executer Factory is eionet.jasperreports.cds.SPARQLQueryExecuterFactory. The Fields Provider Class can be eionet.jasperreports.cds.SPARQLQueryFieldsProvider or null.
+Copy openrdf-sesame-2.5.1.jar, slf4j-api-1.5.6.jar, slf4j-log4j12-1.5.6.jar and SPARQLDataSource-1.0-SNAPSHOT.jar in the ireport directory to a location that can be seen by iReport. Add the JAR files to the Classpath tab in the Options dialog. On the *Query Executers* tab, add a query executer for sparql. The Query Executer Factory is eionet.jasperreports.cds.SPARQLQueryExecuterFactory. The Fields Provider Class can be eionet.jasperreports.cds.SPARQLQueryFieldsProvider or null.
 
 Add a "Query Executer mode" data source to your iReport data sources. It facilitates the execution of a report's embedded query.
 
@@ -81,5 +81,5 @@ Add a "Query Executer mode" data source to your iReport data sources. It facilit
 * Choose a template.
 * Add a parameter called 'endpoint'. At the right side, you can then select the properties of the parameter. If you don't see the properties, select it from the Window drop down menu. Set the default value expression to the URL of the SPARQL endpoint. (Usually ends with .../sparql). Remember to put it in double-quotes.
 * Add your SPARQL query via the Report query button.
-* You can now read the fields and get a preview of the output
+* You can now read the field names and get a preview of the output
 * When you upload the report to the report repository, don't select a data source.
