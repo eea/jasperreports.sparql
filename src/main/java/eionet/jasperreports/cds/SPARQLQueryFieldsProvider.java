@@ -21,6 +21,7 @@ import org.openrdf.query.parser.QueryParserUtil;
 import org.openrdf.query.QueryLanguage;
 
 import org.openrdf.model.Literal;
+import org.openrdf.model.URI;
 import org.openrdf.model.Value;
 import org.openrdf.model.Resource;
 import org.openrdf.query.BindingSet;
@@ -52,14 +53,19 @@ public class SPARQLQueryFieldsProvider implements FieldsProvider {
         return true;
     }
 
+    // Note: The properties in the report are not copied to the reportDataset object.
     @Override
     public JRField[] getFields(IReportConnection con, JRDataset reportDataset, Map parameters )
             throws JRException, UnsupportedOperationException {
 
         String queryString = reportDataset.getQuery().getText();
         String limitedQuery = getLimitedQuery(queryString);
-        JRPropertiesMap m = reportDataset.getPropertiesMap();
-        String endpointUrl = m.getProperty("endpoint");
+//      JRPropertiesMap m = reportDataset.getPropertiesMap();
+//      String endpointUrl = m.getProperty("endpoint");
+        String endpointUrl = null;
+        if (parameters.containsKey("endpoint")) {
+            endpointUrl = parameters.get("endpoint").toString();
+        }
         ArrayList fields = new ArrayList();
 
         SPARQLDataSource ds = new SPARQLDataSource(endpointUrl, limitedQuery);
@@ -85,10 +91,14 @@ public class SPARQLQueryFieldsProvider implements FieldsProvider {
         }
         if (value instanceof Literal) {
             Literal lValue = (Literal) value;
-            String namespace = lValue.getDatatype().getNamespace();
-            String dataType = lValue.getDatatype().getLocalName();
+            URI dataType = lValue.getDatatype();
+            if (dataType == null) {
+                return "java.lang.String";
+            }
+            String namespace = dataType.getNamespace();
+            String dataTypeFrag = dataType.getLocalName();
             if ("http://www.w3.org/2001/XMLSchema#".equals(namespace)) {
-                String javaType = XSD_TYPES.get(dataType);
+                String javaType = XSD_TYPES.get(dataTypeFrag);
                 if (javaType != null) {
                     return javaType;
                 }

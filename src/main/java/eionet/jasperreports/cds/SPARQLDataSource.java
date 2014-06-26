@@ -131,7 +131,13 @@ public class SPARQLDataSource implements JRDataSource {
             if (fieldClass.equals(Boolean.class)) {
                return lValue.booleanValue();
             } else if (fieldClass.equals(Integer.class)) {
-               return (Integer) lValue.intValue();
+               return Integer.valueOf(lValue.intValue());
+            } else if (fieldClass.equals(Short.class)) {
+               return Short.valueOf(lValue.shortValue());
+            } else if (fieldClass.equals(Double.class)) {
+               return (Double) lValue.doubleValue();
+            } else if (fieldClass.equals(Float.class)) {
+               return (Float) lValue.floatValue();
             } else if (fieldClass.equals(Long.class)) {
                return (Long) lValue.longValue();
             } else if (fieldClass.equals(BigDecimal.class)) {

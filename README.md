@@ -79,5 +79,7 @@ Add a "Query Executer mode" data source to your iReport data sources. It facilit
 ## Creating a report in iReport Designer
 
 * Choose a template.
-* On the **Report Properties** view, add a property called 'endpoint'. The value is the URL of the SPARQL endpoint. (Usually ends with .../sparql).
+* Add a parameter called 'endpoint'. At the right side, you can then select the properties of the parameter. If you don't see the properties, select it from the Window drop down menu. Set the default value expression to the URL of the SPARQL endpoint. (Usually ends with .../sparql). Remember to put it in double-quotes.
 * Add your SPARQL query via the Report query button.
+* You can now read the fields and get a preview of the output
+* When you upload the report to the report repository, don't select a data source.
