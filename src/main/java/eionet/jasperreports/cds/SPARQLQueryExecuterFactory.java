@@ -23,14 +23,14 @@ public class SPARQLQueryExecuterFactory implements QueryExecuterFactory {
     }
 
     @Override
-    public JRQueryExecuter createQueryExecuter(JRDataset dataset, Map<String,? extends JRValueParameter> parameters) throws JRException {
+    public JRQueryExecuter createQueryExecuter(JRDataset dataset,
+            Map<String,? extends JRValueParameter> parameters) throws JRException {
         return new SPARQLQueryExecuter(dataset, parameters);
     }
 
     @Override
     public Object[] getBuiltinParameters() {
-        // TODO Auto-generated method stub
-        return null;
+        return new Object[]{};
     }
 
     /* (non-Javadoc)
@@ -38,7 +38,6 @@ public class SPARQLQueryExecuterFactory implements QueryExecuterFactory {
      */
     @Override
     public boolean supportsQueryParameterType(String className) {
-        // TODO Auto-generated method stub
         return true;
     }
 

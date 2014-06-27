@@ -64,7 +64,6 @@ public class SPARQLQueryExecuter extends JRAbstractQueryExecuter {
      */
     @Override
     public boolean cancelQuery() throws JRException {
-        // TODO Auto-generated method stub
         return false;
     }
 
