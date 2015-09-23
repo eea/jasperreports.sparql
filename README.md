@@ -13,6 +13,17 @@ You will also have to tell JasperReports Server how to display a nicer label for
 query.language.sparql.label=SPARQL
 ```
 
+## Use from other Java applications
+
+Add the following to pom.xml:
+```
+<dependency>
+ <groupId>eionet</groupId>
+ <artifactId>jasperreports.sparql</artifactId>
+ <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
 ## Compilation
 If you want to compile the SPARQL Data Source you'll have to first install the Java Development Kit and Maven locally.
 
